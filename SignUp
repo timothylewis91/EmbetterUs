@@ -1,0 +1,148 @@
+SIGN UP
+const SignUpPage = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleSignUp = async () => {
+    const [count, setCount] = useState(0);
+    setEmail(email);
+    setPassword(password);
+    setConfirmPassword(confirmPassword);
+    setCount(count + 1);
+
+    // Navigate to another screen
+    navigation.navigate("EmailConfirm");
+
+    const signInCredential = await signInWithPopup(
+      auth,
+      email,
+      password,
+      confirmPassword
+    );
+    console.log(signInCredential, ":Sign In Credits");
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Sign Up</Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={styles.input}
+              secureTextEntry={true}
+              placeholder="Password"
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+            />
+            <TextInput
+              style={styles.input}
+              secureTextEntry={true}
+              placeholder="Confirm Password"
+              onChangeText={(text) => setConfirmPassword(text)}
+              value={confirmPassword}
+            />
+          </View>
+          <View style={styles.button}>
+            <Button title="Sign Up" onPress={handleSignUp} color="#EAB54B" />
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate("Another")}>
+            <Text style={styles.text}>I already have an account</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+SIGN IN
+
+const SignInPage = ({ navigation, link }) => {
+  // const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState(email, password);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handlePassword = (text) => {
+    setPassword(text);
+    setError("");
+  };
+  // Handle user state changes
+  const handleSignIn = async () => {
+    setEmail(email);
+    setPassword(password);
+
+    const userCredential = await signInWithEmailAndPassword(user);
+    console.log(userCredential.user + "User Logs ");
+  };
+
+  const handleListing = () => {
+    // Your listing logic here
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={{ flex: 1, padding: 16 }}>
+        <ListingBanner />
+        <View
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text style={styles.title}>Sign In</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder="Password"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+          />
+        </View>
+
+        <View style={styles.buttonFooter}>
+          <Button title="Sign In" onPress={handleSignIn} color="#EAB54B" />
+
+          <TouchableOpacity onPress={() => navigation.navigate(link)}>
+            <Text style={styles.text}>I forgot my password</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.buttonFooter}>
+        <Button
+          title="Sign Up"
+          onPress={() => navigation.navigate("SignUp")}
+          color="#EAB54B"
+        />
+        <View style={styles.space} />
+        <Button
+          title="Create a Listing"
+          onPress={handleListing}
+          color="#F13F4C"
+        />
+      </View>
+    </SafeAreaView>
+  );
+};
