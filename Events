@@ -1,0 +1,220 @@
+EVENT NAME 
+const EventName = ({ onNext }) => {
+  const [name, setName] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+
+  return (
+    <View style={styles.container}>
+      <ListingBanner />
+      <View style={styles.spaceHeader} />
+      <Text style={styles.title}>What is the name of your event?</Text>
+      <View style={styles.spaceHeader} />
+      <TextInput style={styles.input} onChangeText={setName}>
+        {" "}
+        <Icon name="shop" size={18} color="black" /> {"Event Name"}
+      </TextInput>
+
+      <DatePicker
+        style={styles.datePicker}
+        date={startDate}
+        mode="date"
+        format="YYYY-MM-DD"
+        placeholder="Select start date"
+        onDateChange={(date) => setStartDate(date)}
+      />
+
+      <DatePicker
+        style={styles.datePicker}
+        date={startTime}
+        mode="time"
+        placeholder="Select start time"
+        format="HH:mm"
+        onDateChange={(time) => setStartTime(time)}
+      />
+      <View style={styles.space} />
+      <TouchableOpacity style={styles.button} onPress={onNext}>
+        <Icon name="check" size={30} color="black" style={styles.icon} />
+        <Text style={styles.buttonText}>Next</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+EVENT MEDIA 
+const EventMedia = (props) => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(null);
+
+  const selectImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setSelectedImage(result.uri);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const uploadImage = async () => {
+    try {
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setUploadedImage(result.uri);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <EventBanner />
+      <Text style={styles.title}>Add media to your event</Text>
+      <View style={styles.space} />
+      <Text style={styles.subtitle}>Upload a flyer</Text>
+      <TouchableOpacity onPress={selectImage}>
+        <Image style={styles.plusImage} source={ProfileIcon} />
+      </TouchableOpacity>
+      {selectedImage && (
+        <Image source={{ uri: selectedImage }} style={styles.selectedImage} />
+      )}
+      <View style={styles.space} />
+      <Text style={styles.subtitle}>Add images to your event</Text>
+      <TouchableOpacity onPress={uploadImage}>
+        <Image style={styles.uploadImage} source={ProfileIcon} />
+      </TouchableOpacity>
+      {uploadedImage && (
+        <Image source={{ uri: uploadedImage }} style={styles.uploadedImage} />
+      )}
+      <View style={styles.space} />
+      <View style={styles.space} />
+      <TouchableOpacity
+        style={styles.nextButton}
+        onPress={() => props.navigation.navigate("NextComponent")}
+      >
+        <Text style={styles.nextButtonText}>Next</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+EVENT LOCATION
+const EventLocation = () => {
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [cityState, setCityState] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [showOptions, setShowOptions] = useState(false);
+  const [optionSelected, setOptionSelected] = useState(null);
+
+  const handleNext = () => {
+    // code to handle navigating to the next component
+  };
+
+  return (
+    <View style={styles.container}>
+      <EventBanner />
+      <View style={styles.space} />
+      <Text style={styles.title}>Where will your event be located?</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Street Address"
+        value={address1}
+        onChangeText={setAddress1}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Street Address 2"
+        value={address2}
+        onChangeText={setAddress2}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="City, State"
+        value={cityState}
+        onChangeText={setCityState}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Zip Code"
+        value={zipCode}
+        onChangeText={setZipCode}
+      />
+      <TouchableOpacity
+        style={styles.optionBar}
+        onPress={() => setShowOptions(!showOptions)}
+      >
+        <Text style={styles.optionTitle}>Is this a virtual event?</Text>
+        {showOptions && (
+          <View style={styles.optionsContainer}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                setOptionSelected("Yes");
+                setShowOptions(false);
+              }}
+            >
+              <Text style={styles.optionText}>Yes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => {
+                setOptionSelected("No");
+                setShowOptions(false);
+              }}
+            >
+              <Text style={styles.optionText}>No</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+        <Icon name="check-circle" size={30} color="black" style={styles.icon} />
+        <Text style={styles.nextButtonText}>Next</Text>
+      </TouchableOpacity>
+    </View>
+    //////////////////////////////////////////////////////////////
+    CONFIRMATION 
+    const EventConfirm = () => {
+  const [confirm, setConfirm] = useState(false);
+  const myImage = require("/EmbetterUs/embetterUs/assets/Icons/profilePic3.jpg");
+  return (
+    <View style={styles.container}>
+      <ThatsIt />
+      <View style={styles.space} />
+      <View style={styles.header}>
+        <Text style={styles.title}>CHECK YOU OUT !!</Text>
+        <Text style={styles.subtitle}>Butter and Bakery Farm Fest 2023</Text>
+      </View>
+      <View style={styles.imageContainer}>
+        <Image source={myImage} style={styles.image} />
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>We'll handle the promotions!</Text>
+        <Text style={styles.textParagraph}>
+          Everyone that follows you, your partners or any of your sponsors will
+          be notified of this new event. You'll also be included in email
+          digests and searches in your market.
+        </Text>
+      </View>
+      <View style={styles.space} />
+      <TouchableOpacity style={styles.button} onPress={() => setConfirm(true)}>
+        <Icon name="check-circle" size={30} color="black" style={styles.icon} />
+        <Text style={styles.buttonText}>See your new event!</Text>
+      </TouchableOpacity>
+      {confirm && <Text style={styles.confirmText}>Confirmed!</Text>}
+    </View>
+  );
+};
