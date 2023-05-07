@@ -1,0 +1,134 @@
+BANNER MODAL 
+const ModalCards = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [currentCard, setCurrentCard] = useState(1);
+
+  const handleNextCard = () => {
+    setCurrentCard(currentCard + 1);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleSkip = () => {
+    if (currentCard > 1) {
+      setCurrentCard(currentCard - 1);
+    }
+  };
+
+  const renderCard = () => {
+    switch (currentCard) {
+      case 1:
+        return (
+          <View style={styles.card}>
+            <View style={styles.bannerContainer}>
+              <Text style={styles.bannerText}>How this works</Text>
+              <TouchableOpacity onPress={handleCloseModal}>
+                <Text style={styles.closeButton}>X</Text>
+              </TouchableOpacity>
+            </View>
+            <Image source={modal} style={styles.image} />
+            <Text style={styles.title}>
+              What if you had immediate access to your entire local marker with
+              just a simple listing?
+            </Text>
+            <Text style={styles.description}>
+              The Embetter Network doesn't work on ad dollars. Our buisnesses
+              pay for a small subscription fee every month and every search puts
+              the nearest, best quality products and services firsr for each
+              search. No algorithm tricks, just people genuinely looking for the
+              best local business.{" "}
+            </Text>
+            <View style={styles.footer}>
+              <TouchableOpacity onPress={handleSkip}>
+                <Text style={styles.skipButton}>Skip</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleNextCard}>
+                <Text style={styles.nextButton}>Next </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        );
+      case 2:
+        return (
+          <View style={styles.card}>
+            <View style={styles.bannerContainer}>
+              <Text style={styles.bannerText}>How this works</Text>
+              <TouchableOpacity onPress={handleCloseModal}>
+                <Text style={styles.closeButton}>X</Text>
+              </TouchableOpacity>
+            </View>
+            <Image source={modal1} style={styles.image} />
+            <Text style={styles.title}>
+              What if your marketing plan consisted of doing great work and
+              being rewarded for it?
+            </Text>
+            <Text style={styles.description}>
+              The embetter.us app and the Embetter Network are built squarely on
+              the power of the people; thier word, thier feedback, thier
+              excitement, their delight. Do great work, encourage your customers
+              to post thier slaps and feedback and our app does the rest in your
+              market.
+            </Text>
+            <View style={styles.footer}>
+              <TouchableOpacity onPress={handleSkip}>
+                <Text style={styles.skipButton2}>Skip</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleNextCard}>
+                <Text style={styles.nextButton2}>Next </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        );
+      case 3:
+        return (
+          <View style={styles.card}>
+            <View style={styles.bannerContainer}>
+              <Text style={styles.bannerText}>How this works</Text>
+              <TouchableOpacity onPress={handleCloseModal}>
+                <Text style={styles.closeButton}>X</Text>
+              </TouchableOpacity>
+            </View>
+            <Image source={modal2} style={styles.image} />
+            <Text style={styles.title}>
+              What if it didn't matter whether you had a building, trailer, a
+              truck, or just your dining table
+            </Text>
+            <Text style={styles.description}>
+              On the Embetter Network, the only thing that matters is that you
+              deliver great products and great service. It doesn't matter how.
+              Whether you work from an office, a trailer, a mobile truck, or
+              your living room, we don't limit your business.
+            </Text>
+            <View style={styles.footer}>
+              <TouchableOpacity onPress={handleSkip}>
+                <Text style={styles.skipButton3}>Skip</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleCloseModal}>
+                <Text style={styles.nextButton3}>
+                  {currentCard < 3 ? "Next" : "Finish"}{" "}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        );
+      default:
+        return null;
+    }
+  };
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  LISTING BANNER
+  const ListingBanner = () => {
+  return (
+    <View style={styles.headerContainer}>
+      <View style={styles.headerBanner}>
+        <Text style={styles.headerText}>Create an Event</Text>
+        <TouchableOpacity style={styles.closeButton}>
+          <Text style={styles.closeButtonText}>X</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+  
